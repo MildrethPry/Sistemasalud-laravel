@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,16 +86,14 @@ Route::get('/admin/horarios/{id}/confirm-delete', [App\Http\Controllers\HorarioC
 Route::delete('/admin/horarios/{id}', [App\Http\Controllers\HorarioController::class, 'destroy'])->name('admin.horarios.destroy')->middleware('auth','can:admin.horarios.index');
 
 //ajax
+//ajax
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/cargar-datos-consultorios/{id}',
         [App\Http\Controllers\HorarioController::class, 'cargar_datos_consultorios'])
-        ->name('admin.horarios.cargar_datos_consultorios')->middleware('auth','can;admin.horarios.index');
+        ->name('admin.horarios.cargar_datos_consultorios')->middleware('auth','can:admin.horarios.index');
     // ... otras rutas
 });
 
 
-use App\Http\Controllers\ContactController;
 
-Route::post('/contact', [ContactController::class, 'store']);
-//exit
 
